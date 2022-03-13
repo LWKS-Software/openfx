@@ -68,7 +68,6 @@ namespace OFX {
         , _pc(pc)
         , _baseDescriptor(NULL)
         , _madeKnownContexts(false)
-        , _pluginHandle(0)
       {
         _baseDescriptor = gImageEffectHost->makeDescriptor(this);
       }
@@ -86,7 +85,6 @@ namespace OFX {
         , _pc(pc)
         , _baseDescriptor(NULL) 
         , _madeKnownContexts(false)
-        , _pluginHandle(0)
       {        
         _baseDescriptor = gImageEffectHost->makeDescriptor(this);
       }
@@ -181,7 +179,7 @@ namespace OFX {
           OfxPlugin *op = _pluginHandle->getOfxPlugin();
           
           if (!op) {
-            _pluginHandle.reset(0);
+            _pluginHandle.reset();
             return 0;
           }
 
@@ -197,7 +195,7 @@ namespace OFX {
           } CatchAllSetStatus(stat, gImageEffectHost, op, kOfxActionLoad);
 
           if (stat != kOfxStatOK && stat != kOfxStatReplyDefault) {
-            _pluginHandle.reset(0);
+            _pluginHandle.reset();
             return 0;
           }
           
@@ -212,7 +210,7 @@ namespace OFX {
           } CatchAllSetStatus(stat, gImageEffectHost, op, kOfxActionDescribe);
 
           if (stat != kOfxStatOK && stat != kOfxStatReplyDefault) {
-            _pluginHandle.reset(0);
+            _pluginHandle.reset();
             return 0;
           }
         }
